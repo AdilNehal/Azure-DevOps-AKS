@@ -1,0 +1,45 @@
+"repo: self" refers to the same repository that contains the pipeline YAML — i.e., the current repo. 
+By default Azure Pipelines automatically checks out that repository (checkout: self), so declaring it as a resource is usually redundant unless you need to:
+
+treat the repo as an explicit resource (specify a different ref/branch)
+use a different service connection/endpoint
+fetch it when automatic checkout is disabled (checkout: none)
+
+Examples:
+
+explicit self checkout at a specific ref:
+
+```yaml
+# filepath: example.yml
+resources:
+  repositories:
+  - repository: self
+    ref: refs/heads/main
+```
+
+disable automatic checkout and checkout only what you want:
+
+```yaml
+# filepath: example.yml
+steps:
+- checkout: none
+
+# later explicitly checkout self
+- checkout: self
+```
+
+checkout another repo:
+
+```yaml
+# filepath: example.yml
+resources:
+  repositories:
+  - repository: toolingRepo
+    type: git
+    name: Org/OtherRepo
+    endpoint: myServiceConnection
+
+steps:
+- checkout: toolingRepo
+```
+

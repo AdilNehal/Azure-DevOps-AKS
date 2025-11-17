@@ -5,6 +5,9 @@
 trigger:
 - master
 
+# "repo: self" refers to the same repository that contains the pipeline YAML — i.e., 
+#the current repo. By default Azure Pipelines automatically checks out that repository (checkout: self), so declaring it as a resource is usually redundant 
+
 resources:
 - repo: self
 
