@@ -53,10 +53,13 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
+      # It's created in the Azure DevOps project in the Environments section after creating service connection to AKS cluster
     environment: 'stacksimplifyazuredevopsgithubacraksapp1internal-1561.default'
     strategy:
       runOnce:
         deploy:
+        # This is the pre-made tasks in Azure DevOps for Kubernetes deployment - we just have to provide the name check: $imagePullSecret
+        # it will use this secret to pull image from ACR
           steps:
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret
